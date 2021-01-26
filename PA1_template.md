@@ -6,14 +6,16 @@ output:
     keep_md: yes
   pdf_document: default
 ---
-
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
 
 ## Loading and preprocessing the data
 
 Load the data using read.csv() and drop the missing data for my analysis:
 
 
-```r
+```{r, echo = TRUE}
 library(dplyr)
 ```
 
@@ -34,7 +36,7 @@ library(dplyr)
 ##     intersect, setdiff, setequal, union
 ```
 
-```r
+```{r, echo = TRUE}
 library(ggplot2)
 ```
 
@@ -42,7 +44,7 @@ library(ggplot2)
 ## Warning: package 'ggplot2' was built under R version 3.6.2
 ```
 
-```r
+```{r, echo = TRUE}
 library(lubridate)
 ```
 
