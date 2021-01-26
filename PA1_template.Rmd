@@ -2,9 +2,9 @@
 title: 'Reproducible Research: Peer Assessment 1'
 author: "Xiaonan Xu"
 output: 
-  pdf_document: default
   html_document:
     keep_md: yes
+  pdf_document: default
 ---
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -99,6 +99,6 @@ data8_ends <- data8 %>% filter(wday == 6 | wday == 7) %>% group_by(interval) %>%
 tidydata <- rbind(data8_days, data8_ends)
 
 # Make a panel plot to compare the average number of steps taken per 5-minute interval across weekends and weekends:
-ggplot(tidydata8) + geom_line(aes(x=interval, y=steps_avg, color = wday_nr), stat="identity") + labs(title = "Average number of steps taken per 5-minute interval across weekends and weekends", x = "5-minute interval per day", y = "Average number of steps") + xlim(0,2360) + facet_grid(wday_nr ~ .) + theme(legend.title = element_blank())
+ggplot(tidydata) + geom_line(aes(x=interval, y=steps_avg, color = weekday), stat="identity") + labs(title = "Average number of steps taken per 5-minute interval across weekends and weekends", x = "5-minute interval per day", y = "Average number of steps") + xlim(0,2360) + facet_grid(weekday ~ .) + theme(legend.title = element_blank())
 ```
 
