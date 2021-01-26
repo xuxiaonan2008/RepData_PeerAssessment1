@@ -67,7 +67,7 @@ library(lubridate)
 ##     date, intersect, setdiff, union
 ```
 
-```r
+```{r, echo = TRUE}
 rowdata <- read.csv("/Users/macbookpro/Documents/GitHub/RepData_PeerAssessment1/activity.csv", sep = ",", header = TRUE)
 rowdata$steps <- as.numeric(as.character(rowdata$steps))
 newdata <- rowdata[complete.cases(rowdata),]
@@ -78,7 +78,7 @@ newdata <- rowdata[complete.cases(rowdata),]
 To answer this question, I calculate the total number of steps taken per day (Although I understand this task asking for the total number of steps taken EACH DAY (see the expression in the *Commit containing full submission*), so I plot a bar for the steps number for each day (the first plot) and a histogram for the average step number for one day (the second plot).). Then I calculate and report the mean and median of the total number of steps taken per day.
 
 
-```r
+```{r, echo = TRUE}
 sum <- aggregate(newdata$steps, by = list(newdata$date), sum)
 
 # make a bar plot for the total number of steps for each day:
@@ -87,7 +87,7 @@ ggplot(sum) + geom_bar(aes(x, Group.1), stat="identity") + labs(title = "The tot
 
 ![](PA1_template_files/figure-html/unnamed-chunk-1-1.png)<!-- -->
 
-```r
+```{r, echo = TRUE}
 # make a histograum with 30 bins:
 ggplot(data = sum, aes(x)) + geom_histogram(bins = 30) + 
         labs(title = "The total number of steps taken per day", x = "Total number of steps")
@@ -95,7 +95,7 @@ ggplot(data = sum, aes(x)) + geom_histogram(bins = 30) +
 
 ![](PA1_template_files/figure-html/unnamed-chunk-1-2.png)<!-- -->
 
-```r
+```{r, echo = TRUE}
 # calculate the mean and median number of the steps per day:
 mean(sum$x)
 ```
@@ -104,7 +104,7 @@ mean(sum$x)
 ## [1] 10766.19
 ```
 
-```r
+```{r, echo = TRUE}
 median(sum$x)
 ```
 
@@ -118,7 +118,7 @@ So the mean and median of the total number of steps taken per day are 10766.19 a
 For this question I will make a time series plot of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis):
 
 
-```r
+```{r, echo = TRUE}
 # make a line plot for the average number of steps taken:
 mean <- aggregate(newdata$steps, by = list(newdata$interval), mean)
 
@@ -129,7 +129,7 @@ ggplot(mean) + geom_line(aes(Group.1, x), stat="identity") +
 
 ![](PA1_template_files/figure-html/unnamed-chunk-2-1.png)<!-- -->
 
-```r
+```{r, echo = TRUE}
 # find the 5-minute interval containing the maximum number of steps
 mean[which.max(mean$x),]
 ```
@@ -144,7 +144,7 @@ So the 835-839 internal contains the maximum number of steps.
 ## Imputing missing values
 
 
-```r
+```{r, echo = TRUE}
 # total number of missing values in the dataset:
 sum(is.na(rowdata))
 ```
@@ -153,7 +153,7 @@ sum(is.na(rowdata))
 ## [1] 2304
 ```
 
-```r
+```{r, echo = TRUE}
 mean(is.na(rowdata$steps))
 ```
 
@@ -161,7 +161,7 @@ mean(is.na(rowdata$steps))
 ## [1] 0.1311475
 ```
 
-```r
+```{r, echo = TRUE}
 # I use the mean for the corresponding 5-minute interval to imput the missing value:
 data_na <- rowdata %>% group_by(interval) %>%
 mutate(steps_na = ifelse(is.na(steps), mean(steps,na.rm=TRUE), steps))
@@ -175,7 +175,7 @@ ggplot(data = sum_na, aes(x)) + geom_histogram(bins = 30) +
 
 ![](PA1_template_files/figure-html/unnamed-chunk-3-1.png)<!-- -->
 
-```r
+```{r, echo = TRUE}
 # calculate the mean and median number:
 mean(sum_na$x)
 ```
@@ -184,7 +184,7 @@ mean(sum_na$x)
 ## [1] 10766.19
 ```
 
-```r
+```{r, echo = TRUE}
 median(sum_na$x)
 ```
 
@@ -196,7 +196,7 @@ So there are 2304 missing values, which is about 13.12% in the dataset. The mean
 ## Are there differences in activity patterns between weekdays and weekends?
 
 
-```r
+```{r, echo = TRUE}
 # create a new factor variable in the dataset with two levels – “weekday” and “weekend” indicating whether a given date is a weekday or weekend day
 data8 <- newdata %>% mutate(wday = wday(as.Date(as.character(date))))
 
